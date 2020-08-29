@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Thêm mới quyền</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href='@{/css/style.css}'>
+</head>
+
+<body>
+  <div class="d-flex justify-content-between">
+  
+    <!-- SIDEBAR -->
+    <div th:replace="fragments/sidebar"></div>
+    <div id="admin-wrapper">
+    <div th:replace="fragments/navbar"></div>
+    <!-- CONTENT -->
+    <section layout:fragment="content"></section>
+    </div>
+  </div>
+    <script th:src="@{/js/jquery.slim.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
