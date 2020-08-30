@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator ="layout/default">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout/default">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home page</title>
 </head>
 <body>
-  <h1>Home page</h1>
+  <section id="admin-content" class="p-3" layout:fragment="content">
+    <div class="col-md-auto">
+      <h1>Home Page</h1>
+    </div>
+    <div class="row">
+
+      <div class="col-md-6">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="myChart2" width="400" height="400"></canvas>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </section>
 </body>
 </html>

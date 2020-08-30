@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator ="layout/default">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout/default">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+  <section layout:fragment="content">
   <!-- Page Content -->
   <div id="page-wrapper">
     <div class="container-fluid">
@@ -56,6 +57,6 @@
     </footer>
   </div>
   <!-- /#page-wrapper -->
-  </div>
+  </section>
 </body>
 </html>
