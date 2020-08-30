@@ -15,9 +15,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.myclass.connection.JdbcConnection;
 import com.myclass.controller.RoleDao;
 import com.myclass.dao.impl.RoleDaoImpl;
-import com.myclass.database.JdbcConnection;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 

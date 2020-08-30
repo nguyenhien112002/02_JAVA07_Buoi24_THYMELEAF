@@ -9,9 +9,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.myclass.connection.JDBCConnection;
+import com.myclass.connection.JdbcConnection;
 import com.myclass.controller.RoleDao;
-import com.myclass.database.JdbcConnection;
 import com.myclass.entity.Role;
 
 public class RoleDaoImpl implements RoleDao {
