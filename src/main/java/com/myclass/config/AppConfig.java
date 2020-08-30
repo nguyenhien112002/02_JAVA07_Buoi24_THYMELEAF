@@ -15,6 +15,10 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.myclass.controller.RoleDao;
+import com.myclass.dao.impl.RoleDaoImpl;
+import com.myclass.database.JdbcConnection;
+
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
@@ -25,6 +29,16 @@ public class AppConfig implements WebMvcConfigurer {
      * public void configureViewResolvers(ViewResolverRegistry registry) {
      * registry.jsp("/WEB-INF/views/", ".jsp"); }
      */
+    @Bean
+    public JdbcConnection jdbcConnection() {
+        return  new JdbcConnection();
+    }
+
+    @Bean
+    public RoleDao roleDao() {
+        return new RoleDaoImpl();
+    }
+
     @Bean
     public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -57,11 +71,9 @@ public class AppConfig implements WebMvcConfigurer {
         viewResolver.setContentType("text/html");
         return viewResolver;
     }
-    
+
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-            .addResourceHandler("/**")
-            .addResourceLocations("/static/");
+        registry.addResourceHandler("/**").addResourceLocations("/static/");
     }
 
 }
