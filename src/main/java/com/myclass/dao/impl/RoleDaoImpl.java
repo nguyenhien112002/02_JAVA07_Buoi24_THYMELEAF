@@ -21,9 +21,12 @@ public class RoleDaoImpl implements RoleDao {
 
     public RoleDaoImpl() {
         roles = new ArrayList<Role>();
-        roles.add(new Role(1, "ROLE_ADMIN", "Quản trị hệ thống"));
-        roles.add(new Role(2, "ROLE_TEACHER", " Giảng viên"));
-        roles.add(new Role(3, "ROLE_STUDENT", "Học viên viên"));
+        /*
+         * roles.add(new Role(1, "ROLE_ADMIN", "Quản trị hệ thống")); roles.add(new
+         * Role(2, "ROLE_TEACHER", " Giảng viên")); roles.add(new Role(3,
+         * "ROLE_STUDENT", "Học viên viên"));
+         */
+        roles = findAll();
     }
 
     public RoleDaoImpl(List<Role> roles) {
