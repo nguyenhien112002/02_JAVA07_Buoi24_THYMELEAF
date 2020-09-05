@@ -45,7 +45,7 @@ public class RoleController {
         System.out.println("id: " + role.getId());
         System.out.println("id: " + role.getName());
         System.out.println("id: " + role.getDescription());
-        roleDao.add(role);
+        roleDao.addOrUpdate(role);
         return "redirect:/role";
     }
 
@@ -62,7 +62,7 @@ public class RoleController {
         System.out.println("id: " + role.getId());
         System.out.println("id: " + role.getName());
         System.out.println("id: " + role.getDescription());
-        roleDao.update(role);
+        roleDao.addOrUpdate(role);
         return "redirect:/role";
     }
     

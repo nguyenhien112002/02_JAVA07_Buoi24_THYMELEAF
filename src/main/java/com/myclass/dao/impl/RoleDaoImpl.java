@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.myclass.connection.JdbcConnection;
@@ -15,83 +19,76 @@ import com.myclass.entity.Role;
 
 public class RoleDaoImpl implements RoleDao {
     @Autowired
-    private JdbcConnection jbbcConnection;
-    
-    List<Role> roles = null;
+    private SessionFactory sessionFactory;
 
-    public RoleDaoImpl() {
-        roles = new ArrayList<Role>();
-        /*
-         * roles.add(new Role(1, "ROLE_ADMIN", "Quản trị hệ thống")); roles.add(new
-         * Role(2, "ROLE_TEACHER", " Giảng viên")); roles.add(new Role(3,
-         * "ROLE_STUDENT", "Học viên viên"));
-         */
-        roles = findAll();
-    }
-
-    public RoleDaoImpl(List<Role> roles) {
-        super();
-        this.roles = roles;
-    }
-
-    public List<Role> findAll1() {
-        return roles;
-    }
     public List<Role> findAll() {
         List<Role> roles = new ArrayList<Role>();
-        Connection conn = jbbcConnection.getConnection();
-        try  {
-
-            String query = "Select * From roles";
-            // Tạo câu lệnh truy vấn sử dụng đối tượng PreparedStatemetn
-            PreparedStatement statement = conn.prepareStatement(query);
-
-            // Thực thi câu lệnh truy vấn =>tạo đối tượng ResultSet lưu trữ tạm thời dữ liệu
-            // lấy ra từ database
-            ResultSet resultset = statement.executeQuery();
-
-            while (resultset.next()) {
-                Role role = new Role();
-                role.setId(resultset.getInt("id"));
-                role.setName(resultset.getString("name"));
-                role.setDescription(resultset.getString("description"));
-                // Thêm vào danh sách
-                roles.add(role);
-            }
-
-        } catch (SQLException e) {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<Role> query = session.createQuery("FROM Role", Role.class);// làm việc với class entity
+            roles = query.list();
+            session.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return roles;
+    }
 
+    public RoleDaoImpl() {
+    }
+
+    public RoleDaoImpl(List<Role> roles) {
     }
 
     public Role findByID(int id) {
-        for (Role role : roles) {
-            if (role.getId() == id)
-                return role;
-        }
-        return null;
-    }
-
-    public void add(Role entity) {
-        roles.add(entity);
-    }
-
-    public void update(Role entity) {
         Role role = new Role();
-        role = findByID(entity.getId());
-        if (role != null) {
-            role.setName(entity.getName());
-            role.setDescription(entity.getDescription());
+        String hql = "FROM Role Where id = :id";
+        try {
+            Session session = sessionFactory.openSession();
+            Query<Role> query = session.createQuery(hql, Role.class);
+            query.setParameter("id", id);
+            role = query.getSingleResult();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return role;
+    }
+
+    public void addOrUpdate(Role entity) {
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null)
+                transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
     public void delete(int id) {
-        for (Role role : roles) {
-            if (role.getId() == id)
-                roles.remove(role);
-            break;
+        Transaction transaction = null;
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            Role role = session.find(Role.class, id);
+            if (role != null) {
+                session.remove(role);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null)
+                transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
