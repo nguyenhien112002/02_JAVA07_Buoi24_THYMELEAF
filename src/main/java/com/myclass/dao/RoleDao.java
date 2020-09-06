@@ -1,4 +1,4 @@
-package com.myclass.controller;
+package com.myclass.dao;
 
 import java.util.List;
 

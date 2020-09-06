@@ -10,47 +10,42 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.myclass.dao.RoleDao;
+import com.myclass.dao.UserDao;
 import com.myclass.entity.Role;
+import com.myclass.entity.User;
 
 @Transactional(rollbackOn = Exception.class)
-public class RoleDaoImpl implements RoleDao {
+public class UserDaoImpl implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public RoleDaoImpl() {
-    }
-
-    public RoleDaoImpl(List<Role> roles) {
-    }
-
-    public List<Role> findAll() {
-        List<Role> roles = new ArrayList<Role>();
+    public List<User> findAll() {
+        List<User> users = new ArrayList<User>();
         try {
             Session session = sessionFactory.getCurrentSession();
-            Query<Role> query = session.createQuery("FROM Role", Role.class);// làm việc với class entity
-            roles = query.list();
+            Query<User> query = session.createQuery("FROM User", User.class);
+            users = query.list();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return roles;
+        return users;
     }
 
-    public Role findByID(int id) {
-        Role role = new Role();
+    public User findByID(int id) {
+        User user = new User();
         String hql = "FROM Role Where id = :id";
         try {
             Session session = sessionFactory.getCurrentSession();
-            Query<Role> query = session.createQuery(hql, Role.class);
+            Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("id", id);
-            role = query.getSingleResult();
+            user = query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return role;
+        return user;
     }
 
-    public void addOrUpdate(Role entity) {
+    public void addOrUpdate(User entity) {
         Session session = null;
         try {
             session = sessionFactory.getCurrentSession();
@@ -64,13 +59,12 @@ public class RoleDaoImpl implements RoleDao {
         Session session = null;
         try {
             session = sessionFactory.getCurrentSession();
-            Role role = session.find(Role.class, id);
-            if (role != null) {
-                session.remove(role);
+            User user = session.find(User.class, id);
+            if (user != null) {
+                session.remove(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,11 +1,18 @@
 package com.myclass.entity;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.apache.catalina.User;
 
 @Entity //khai bao cho hibernate biet lop nay se dung de anh xa den 1 bang trong csdl
 @Table(name="roles") // lop nay anh xa den bang "roles" trong csdl
@@ -22,6 +29,9 @@ public class Role {
     @Column(name="description")
     private String description;
 
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
+    private List<User> users;
+    
     public Role() {
     }
 

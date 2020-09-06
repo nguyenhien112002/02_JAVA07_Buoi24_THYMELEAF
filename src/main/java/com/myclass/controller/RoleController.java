@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import com.myclass.dao.RoleDao;
 import com.myclass.entity.Role;
 
 @Component
