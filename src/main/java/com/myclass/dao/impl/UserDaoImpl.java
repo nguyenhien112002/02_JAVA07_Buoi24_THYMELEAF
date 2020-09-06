@@ -11,7 +11,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.myclass.dao.UserDao;
-import com.myclass.entity.Role;
 import com.myclass.entity.User;
 
 @Transactional(rollbackOn = Exception.class)
@@ -33,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 
     public User findByID(int id) {
         User user = new User();
-        String hql = "FROM Role Where id = :id";
+        String hql = "FROM User Where id = :id";
         try {
             Session session = sessionFactory.getCurrentSession();
             Query<User> query = session.createQuery(hql, User.class);
