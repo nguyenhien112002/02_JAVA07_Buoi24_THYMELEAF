@@ -37,7 +37,7 @@ public class User {
     }
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", updatable = false, insertable = false)
     private Role role;
 
     public User(int id, String email, String password, String fullname, String avatar, int role_id) {

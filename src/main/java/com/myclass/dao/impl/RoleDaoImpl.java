@@ -12,65 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.myclass.dao.RoleDao;
 import com.myclass.entity.Role;
+import com.myclass.entity.User;
 
 @Transactional(rollbackOn = Exception.class)
-public class RoleDaoImpl implements RoleDao {
-    @Autowired
-    private SessionFactory sessionFactory;
-
+public class RoleDaoImpl extends GenericDaoImpl<Role, Integer> implements RoleDao {
     public RoleDaoImpl() {
-    }
-
-    public RoleDaoImpl(List<Role> roles) {
-    }
-
-    public List<Role> findAll() {
-        List<Role> roles = new ArrayList<Role>();
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            Query<Role> query = session.createQuery("FROM Role", Role.class);// làm việc với class entity
-            roles = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return roles;
-    }
-
-    public Role findByID(int id) {
-        Role role = new Role();
-        String hql = "FROM Role Where id = :id";
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            Query<Role> query = session.createQuery(hql, Role.class);
-            query.setParameter("id", id);
-            role = query.getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return role;
-    }
-
-    public void addOrUpdate(Role entity) {
-        Session session = null;
-        try {
-            session = sessionFactory.getCurrentSession();
-            session.saveOrUpdate(entity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(int id) {
-        Session session = null;
-        try {
-            session = sessionFactory.getCurrentSession();
-            Role role = session.find(Role.class, id);
-            if (role != null) {
-                session.remove(role);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        super(Role.class);
     }
 
 }

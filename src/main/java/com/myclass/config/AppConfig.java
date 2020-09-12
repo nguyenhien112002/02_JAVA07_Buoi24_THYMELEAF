@@ -3,19 +3,15 @@ package com.myclass.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import com.myclass.connection.JdbcConnection;
 import com.myclass.dao.RoleDao;
 import com.myclass.dao.impl.RoleDaoImpl;
 
@@ -29,10 +25,6 @@ public class AppConfig implements WebMvcConfigurer {
      * public void configureViewResolvers(ViewResolverRegistry registry) {
      * registry.jsp("/WEB-INF/views/", ".jsp"); }
      */
-    @Bean
-    public JdbcConnection jdbcConnection() {
-        return  new JdbcConnection();
-    }
 
     @Bean
     public RoleDao roleDao() {

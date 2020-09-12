@@ -23,7 +23,6 @@ public class HibernateConfig {
         return manager;
     }
     
-    
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

@@ -15,57 +15,22 @@ import com.myclass.dao.UserDao;
 import com.myclass.entity.User;
 
 @Transactional(rollbackOn = Exception.class)
-public class UserDaoImpl implements UserDao {
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    
-    public List<User> findAll() {
-        List<User> users = new ArrayList<User>();
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            Query<User> query = session.createQuery("FROM User", User.class);
-            users = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
+public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements UserDao {
+    public UserDaoImpl() {
+        super(User.class);
     }
 
-    public User findByID(int id) {
-        User user = new User();
-        String hql = "FROM User Where id = :id";
+    public User findByEmail(String email) {
+        User entity = new User();
+        String hql = "FROM Role Where email = :email";
         try {
             Session session = sessionFactory.getCurrentSession();
             Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("id", id);
-            user = query.getSingleResult();
+            query.setParameter("email", email);
+            entity = query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return user;
-    }
-
-    public void addOrUpdate(User entity) {
-        Session session = null;
-        try {
-            session = sessionFactory.getCurrentSession();
-            session.saveOrUpdate(entity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(int id) {
-        Session session = null;
-        try {
-            session = sessionFactory.getCurrentSession();
-            User user = session.find(User.class, id);
-            if (user != null) {
-                session.remove(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return entity;
     }
 }

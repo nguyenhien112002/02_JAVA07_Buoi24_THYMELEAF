@@ -23,11 +23,14 @@ public class UserController {
     @RequestMapping(value="", method=RequestMethod.GET)
     public String index(Model model) {
         List<User> users = userDao.findAll();
+        System.out.println(users);
+        System.out.println("test");
         //chuyen tiep danh sach role qua trang index.html
         //model.addAllAttributes("roles",roles);
         model.addAttribute("users",users);
         return "user/index";
     }
+    
     @RequestMapping(value="add", method=RequestMethod.GET)
     public String add() {
         return "user/add";
