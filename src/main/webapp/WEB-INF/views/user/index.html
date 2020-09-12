@@ -35,6 +35,26 @@
         </tr>
       </thead>
       <tbody>
+        <tr th:if="${users.empty}">
+          <td colspan="4" class="text-center">Chua co du lieu</td>
+        </tr>
+        <tr th:each="item:${users}">
+          <td th:text="${item.id}"></td>
+          <td th:text="${item.fullname}"></td>
+          <td th:text="${item.email}"></td>
+          <td th:text="${item.avatar}"></td>
+          <td><a th:href="@{/user/edit(id=${item.id})}"
+            class="btn btn-sm btn-info"> <i
+              class="fa fa-pencil-square-o"></i>
+          </a> <a th:href="@{/user/delete(id=${item.id})}"
+            class="btn btn-sm btn-danger"> <i class="fa fa-trash-o"></i></a></td>
+        </tr>
+
+      </tbody>
+      <tbody>
+        <tr th:if="${roles.empty}">
+          <td colspan="4" class="text-center">Chua co du lieu</td>
+        </tr>
         <tr>
           <td>1</td>
           <td>Nguyễn Văn Tèo</td>

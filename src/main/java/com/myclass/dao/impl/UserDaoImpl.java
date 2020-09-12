@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.myclass.dao.RoleDao;
 import com.myclass.dao.UserDao;
 import com.myclass.entity.User;
 
@@ -18,6 +19,7 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    
     public List<User> findAll() {
         List<User> users = new ArrayList<User>();
         try {
