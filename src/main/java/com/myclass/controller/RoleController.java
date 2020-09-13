@@ -21,7 +21,6 @@ public class RoleController {
     @Autowired
     private RoleDao roleDao;
     
-    
     @RequestMapping(value ="", method=RequestMethod.GET)
     public String index(Model model) {
         //lay danh sach role

@@ -7,16 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.myclass.connection.JdbcConnection;
 import com.myclass.controller.RoleDao;
 import com.myclass.entity.Role;
 
+@Transactional(rollbackOn = Exception.class)
 public class RoleDaoImpl implements RoleDao {
     @Autowired
     private SessionFactory sessionFactory;
